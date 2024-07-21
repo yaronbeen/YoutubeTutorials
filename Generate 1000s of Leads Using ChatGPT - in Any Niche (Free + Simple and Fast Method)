@@ -1,0 +1,136 @@
+Generate 1000s of Leads Using ChatGPT - in Any Niche (Free + Simple and Fast Method)
+
+1st step - Finding The Leads:
+
+site:instagram.com "lifecoach" AND ("@gmail.com" OR "@outlook.com" OR “@AOL.com”)
+
+site:linkedin.com "Agency Owner" AND ("@gmail.com" OR "@outlook.com")
+
+
+2nd Step: Cleaning Up the List
+
+You are an Excel and Leadgen expert.
+Please take the content below and create a spreadsheet with the following columns: Name, Name, Email, Company name, and amount of followers.
+3rd Step: Creating the Sheet
+
+Name
+Email
+Company name
+Amount of followers
+Yaron
+Yaron.been@gmail.com
+
+
+
+
+
+
+4th Step: Automating Email
+
+
+No time delay:
+function sendEmails() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1'); // Change 'Sheet1' to the name of your sheet
+  var startRow = 2; // Assuming you have headers in the first row
+  var numRows = sheet.getLastRow() - 1; // Number of rows with data, excluding the header
+  var dataRange = sheet.getRange(startRow, 1, numRows, 4); // Assuming your data starts from column A and has 4 columns
+  var data = dataRange.getValues();
+
+  var subject = "Reach Out from [Your Name/Company]";
+  var messageTemplate = "Hi [Name],\n\nI hope this message finds you well. I came across your profile and wanted to reach out regarding [specific reason]. I believe there are synergies between our work that we could explore.\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name]";
+
+  var emailsSent = 0;
+  var errors = [];
+
+  for (var i = 0; i < data.length; ++i) {
+    var row = data[i];
+    var name = row[0];
+    var email = row[1];
+    var personalizedMessage = messageTemplate.replace("[Name]", name);
+    
+    if (email) { // Check if email exists
+      try {
+        MailApp.sendEmail(email, subject, personalizedMessage);
+        emailsSent++;
+      } catch (e) {
+        errors.push('Failed to send email to: ' + email);
+      }
+    } else {
+      errors.push('No email for: ' + name);
+    }
+  }
+
+  // Add a summary row
+  var summaryRow = sheet.getLastRow() + 2;
+  sheet.getRange(summaryRow, 1).setValue('Summary:');
+  sheet.getRange(summaryRow + 1, 1).setValue('Total Emails Sent: ' + emailsSent);
+  sheet.getRange(summaryRow + 2, 1).setValue('Errors:');
+
+  for (var j = 0; j < errors.length; ++j) {
+    sheet.getRange(summaryRow + 3 + j, 1).setValue(errors[j]);
+  }
+
+  // Send a notification email
+  var userEmail = Session.getActiveUser().getEmail();
+  var notificationSubject = "Email Sending Summary";
+  var notificationMessage = 'Total Emails Sent: ' + emailsSent + '\n\nErrors:\n' + errors.join('\n');
+  MailApp.sendEmail(userEmail, notificationSubject, notificationMessage);
+}
+
+
+
+With Time delay:
+function sendEmails() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1'); // Change 'Sheet1' to the name of your sheet
+  var startRow = 2; // Assuming you have headers in the first row
+  var numRows = sheet.getLastRow() - 1; // Number of rows with data, excluding the header
+  var dataRange = sheet.getRange(startRow, 1, numRows, 4); // Assuming your data starts from column A and has 4 columns
+  var data = dataRange.getValues();
+
+  var subject = "Reach Out from [Your Name/Company]";
+  var messageTemplate = "Hi [Name],\n\nI hope this message finds you well. I came across your profile and wanted to reach out regarding [specific reason]. I believe there are synergies between our work that we could explore.\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name]";
+
+  var emailsSent = 0;
+  var errors = [];
+
+  for (var i = 0; i < data.length; ++i) {
+    var row = data[i];
+    var name = row[0];
+    var email = row[1];
+    var personalizedMessage = messageTemplate.replace("[Name]", name);
+    
+    if (email) { // Check if email exists
+      try {
+        MailApp.sendEmail(email, subject, personalizedMessage);
+        emailsSent++;
+      } catch (e) {
+        errors.push('Failed to send email to: ' + email);
+      }
+
+      // Add a random delay between 30 to 50 minutes
+      var delayMinutes = Math.floor(Math.random() * (50 - 30 + 1)) + 30;
+      var delayMilliseconds = delayMinutes * 60 * 1000;
+      Utilities.sleep(delayMilliseconds);
+    } else {
+      errors.push('No email for: ' + name);
+    }
+  }
+
+  // Add a summary row
+  var summaryRow = sheet.getLastRow() + 2;
+  sheet.getRange(summaryRow, 1).setValue('Summary:');
+  sheet.getRange(summaryRow + 1, 1).setValue('Total Emails Sent: ' + emailsSent);
+  sheet.getRange(summaryRow + 2, 1).setValue('Errors:');
+
+  for (var j = 0; j < errors.length; ++j) {
+    sheet.getRange(summaryRow + 3 + j, 1).setValue(errors[j]);
+  }
+
+  // Send a notification email
+  var userEmail = Session.getActiveUser().getEmail();
+  var notificationSubject = "Email Sending Summary";
+  var notificationMessage = 'Total Emails Sent: ' + emailsSent + '\n\nErrors:\n' + errors.join('\n');
+  MailApp.sendEmail(userEmail, notificationSubject, notificationMessage);
+}
+
+
